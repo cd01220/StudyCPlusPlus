@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Main">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>cpp;c;h;hpp</Extensions>
+    </Filter>
+    <Filter Include="Public">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;h;hpp</Extensions>
+    </Filter>
+    <Filter Include="Iterator">
+      <UniqueIdentifier>{0f22dbbe-9959-4cab-b12a-8bef850adf3c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\Codes\Main.cpp">
+      <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Common.cpp">
+      <Filter>Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\Debug.cpp">
+      <Filter>Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\SystemError.cpp">
+      <Filter>Public</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\Codes\Main.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Common.h">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Debug.h">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\SystemError.h">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\SystemInclude.h">
+      <Filter>Public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\Iterator.h">
+      <Filter>Iterator</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\ReadMe.txt" />
+  </ItemGroup>
+</Project>
