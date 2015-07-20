@@ -83,10 +83,11 @@
     <ClCompile Include="..\Codes\SystemError.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Codes\ContainerBase.h" />
     <ClInclude Include="..\Codes\Common.h" />
     <ClInclude Include="..\Codes\Debug.h" />
-    <ClInclude Include="..\Codes\Iterator.h" />
     <ClInclude Include="..\Codes\Main.h" />
+    <ClInclude Include="..\Codes\MyList.h" />
     <ClInclude Include="..\Codes\SystemError.h" />
     <ClInclude Include="..\Codes\SystemInclude.h" />
   </ItemGroup>

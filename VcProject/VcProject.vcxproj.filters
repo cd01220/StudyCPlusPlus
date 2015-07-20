@@ -43,7 +43,10 @@
     <ClInclude Include="..\Codes\SystemInclude.h">
       <Filter>Public</Filter>
     </ClInclude>
-    <ClInclude Include="..\Codes\Iterator.h">
+    <ClInclude Include="..\Codes\MyList.h">
+      <Filter>Iterator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\ContainerBase.h">
       <Filter>Iterator</Filter>
     </ClInclude>
   </ItemGroup>
