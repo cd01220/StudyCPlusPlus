@@ -49,6 +49,9 @@
     <ClInclude Include="..\Codes\ContainerBase.h">
       <Filter>Iterator</Filter>
     </ClInclude>
+    <ClInclude Include="..\Codes\TestMyList.h">
+      <Filter>Iterator</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\ReadMe.txt" />

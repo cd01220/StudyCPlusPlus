@@ -90,6 +90,7 @@
     <ClInclude Include="..\Codes\MyList.h" />
     <ClInclude Include="..\Codes\SystemError.h" />
     <ClInclude Include="..\Codes\SystemInclude.h" />
+    <ClInclude Include="..\Codes\TestMyList.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\ReadMe.txt" />

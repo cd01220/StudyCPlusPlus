@@ -64,8 +64,8 @@ public:
     }
 
     // orphan all iterators
-    void OrphanAll()
-    {}
+    void OrphanAll();
+
     // swap all iterators
     void SwapAll(ContainerBase12&)
     {}
@@ -103,6 +103,7 @@ public:
 
     ~IteratorBase12()
     {   // destroy the iterator
+        OrphanMe();
     }
 
     void Adopt(const ContainerBase12 *parent)
@@ -113,9 +114,15 @@ public:
         }
         else
         {   // have a parent, do adoption
-            ContainerProxy *_Parent_proxy = parent->myProxy;
+            ContainerProxy *parentProxy = parent->myProxy;
 
-            myProxy = _Parent_proxy;
+            if (myProxy != parentProxy)
+            {	// change parentage
+                OrphanMe();
+                myNextIter = parentProxy->myFistIter;
+                parentProxy->myFistIter = this;
+                myProxy = parentProxy;
+            }
         }
     }
 
@@ -136,6 +143,19 @@ public:
 
     void OrphanMe()
     {   // cut ties with parent
+        if (myProxy != 0)
+        {	// adopted, remove self from list
+            IteratorBase12 **next = &myProxy->myFistIter;
+            while (*next != 0 && *next != this)
+                next = &(*next)->myNextIter;
+
+            if (*next == 0)
+            {
+                std::_DEBUG_ERROR("ITERATOR LIST CORRUPTED!");
+            }
+            *next = myNextIter;
+            myProxy = 0;
+        }
     }
 
     ContainerProxy *myProxy;
@@ -145,6 +165,15 @@ public:
 typedef ContainerBase12 ContainerBase;
 typedef IteratorBase12 IteratorBase;
 
-
+inline void ContainerBase12::OrphanAll()
+{
+    if (myProxy != 0)
+    {	// proxy allocated, drain it
+        for (IteratorBase12 **next = &myProxy->myFistIter;
+            *next != 0; *next = (*next)->myNextIter)
+            (*next)->myProxy = 0;
+        myProxy->myFistIter = 0;
+    }
+}
 
 #endif /* _ContainerBase_h_ */

@@ -57,6 +57,7 @@
 #   include <memory>
 #   include <climits>
 #   include <cerrno>
+#   include <utility>
 #   ifdef _WIN32
 #       include <cstdint>
 #       include <system_error>
