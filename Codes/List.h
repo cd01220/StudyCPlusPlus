@@ -280,28 +280,28 @@ Rechecked(ListConstIterator<_MyList>& iter,
 /******** Template Class ListIterator ********
     prototype: std::_List_iterator 
 */
-template<class MyList>
+template<class _MyList>
 class ListIterator
-    : public ListConstIterator<MyList>
+    : public ListConstIterator<_MyList>
 {   // iterator for mutable list
 public:
-    typedef ListIterator<MyList> MyIter;
-    typedef ListConstIterator<MyList> MyBase;
+    typedef ListIterator<_MyList> MyIter;
+    typedef ListConstIterator<_MyList> MyBase;
     typedef std::bidirectional_iterator_tag iterator_category;
 
-    typedef typename MyList::NodePtr NodePtr;
-    typedef typename MyList::value_type value_type;
-    typedef typename MyList::difference_type difference_type;
-    typedef typename MyList::pointer pointer;
-    typedef typename MyList::reference reference;
+    typedef typename _MyList::NodePtr NodePtr;
+    typedef typename _MyList::value_type value_type;
+    typedef typename _MyList::difference_type difference_type;
+    typedef typename _MyList::pointer pointer;
+    typedef typename _MyList::reference reference;
 
-    typedef ListUncheckedIterator<MyList> UncheckedType;
+    typedef ListUncheckedIterator<_MyList> UncheckedType;
 
     ListIterator()
     {   // construct with null node
     }
 
-    ListIterator(NodePtr node, const MyList *list)
+    ListIterator(NodePtr node, const _MyList *list)
         : MyBase(node, list)
     {   // construct with node pointer node
     }    
@@ -314,7 +314,7 @@ public:
 
     UncheckedType Unchecked() const
     {   // make an unchecked iterator
-        return (UncheckedType(this->ptr, (MyList *) this->GetContainer()));
+        return (UncheckedType(this->ptr, (_MyList *)this->GetContainer()));
     }
 
     reference operator*() const
@@ -354,16 +354,16 @@ public:
     }
 };
 
-template<class MyList>
-inline typename ListIterator<MyList>::UncheckedType
-Unchecked(ListIterator<MyList> iter)
+template<class _MyList>
+inline typename ListIterator<_MyList>::UncheckedType
+Unchecked(ListIterator<_MyList> iter)
 {   // convert to unchecked
     return (iter.Unchecked());
 }
 
-template<class MyList> inline ListIterator<MyList>&
-Rechecked(ListIterator<MyList>& iter,
-    typename ListIterator<MyList>::UncheckedType right)
+template<class _MyList> inline ListIterator<_MyList>&
+Rechecked(ListIterator<_MyList>& iter,
+    typename ListIterator<_MyList>::UncheckedType right)
 {   // convert to checked
     return (iter.Rechecked(right));
 }

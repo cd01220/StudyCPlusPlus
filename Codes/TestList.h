@@ -1,7 +1,7 @@
 #ifndef _TestMyList_h_
 #define _TestMyList_h_
 
-#include "MyList.h"
+#include "List.h"
 
 typedef List<int> IntList;
 

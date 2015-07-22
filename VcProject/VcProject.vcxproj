@@ -87,10 +87,10 @@
     <ClInclude Include="..\Codes\Common.h" />
     <ClInclude Include="..\Codes\Debug.h" />
     <ClInclude Include="..\Codes\Main.h" />
-    <ClInclude Include="..\Codes\MyList.h" />
+    <ClInclude Include="..\Codes\List.h" />
     <ClInclude Include="..\Codes\SystemError.h" />
     <ClInclude Include="..\Codes\SystemInclude.h" />
-    <ClInclude Include="..\Codes\TestMyList.h" />
+    <ClInclude Include="..\Codes\TestList.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\ReadMe.txt" />
