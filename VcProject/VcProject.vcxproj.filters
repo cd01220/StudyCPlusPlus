@@ -49,7 +49,10 @@
     <ClInclude Include="..\Codes\List.h">
       <Filter>Iterator</Filter>
     </ClInclude>
-    <ClInclude Include="..\Codes\TestList.h">
+    <ClInclude Include="..\Codes\MyContainer.h">
+      <Filter>Iterator</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\TestItorator.h">
       <Filter>Iterator</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,6 +1,9 @@
 #ifndef _ContainerBase_h_
 #define _ContainerBase_h_
 
+namespace MyStlList
+{
+
 struct ContainerBase0
 {   // base of all containers
     void OrphanAll()
@@ -149,10 +152,7 @@ public:
             while (*next != 0 && *next != this)
                 next = &(*next)->myNextIter;
 
-            if (*next == 0)
-            {
-                std::_DEBUG_ERROR("ITERATOR LIST CORRUPTED!");
-            }
+            assert(*next != 0); //Iterator list corrupted.
             *next = myNextIter;
             myProxy = 0;
         }
@@ -176,4 +176,5 @@ inline void ContainerBase12::OrphanAll()
     }
 }
 
+} /* namespace MyStlList */
 #endif /* _ContainerBase_h_ */

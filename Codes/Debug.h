@@ -22,7 +22,7 @@ public:
     DebugFlag();
 
     bool GetState(std::string const& funcName);
-    void SetState(std::string const& funcName, bool isDebug);
+    void SetState(std::string const& funcName, bool doDebug);
 
 private:
     static std::map<std::string, bool> flags;

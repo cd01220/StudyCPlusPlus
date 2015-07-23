@@ -20,16 +20,16 @@ bool DebugFlag::GetState(string const& funcName)
     return false;
 }
 
-void DebugFlag::SetState(string const& funcName, bool isDebug)
+void DebugFlag::SetState(string const& funcName, bool doDebug)
 {
     map<string, bool>::iterator iter = flags.find(funcName);
     if (iter == flags.end())
     {
-        flags.insert(make_pair(funcName, isDebug));
+        flags.insert(make_pair(funcName, doDebug));
         return;
     }
 
-    iter->second = isDebug;
+    iter->second = doDebug;
 }
 
 ostream& DbgClearStream(char const* funcName, uint32_t line)
