@@ -287,8 +287,8 @@ class ListIterator
     : public ListConstIterator<_MyList>
 {   // iterator for mutable list
 public:
-    typedef ListIterator<_MyList> MyIter;
     typedef ListConstIterator<_MyList> MyBase;
+    typedef ListIterator<_MyList> MyIter;
     typedef std::bidirectional_iterator_tag iterator_category;
 
     typedef typename _MyList::NodePtr NodePtr;
@@ -407,13 +407,13 @@ private:
     ListNode& operator=(const ListNode&);
 };
 
-template<class ValueType>
-struct ListNode<ValueType, void *>
+template<class _ValueType>
+struct ListNode<_ValueType, void *>
 {   // list node
-    typedef ListNode<ValueType, void *> *NodePtr;
+    typedef ListNode<_ValueType, void *> *NodePtr;
     NodePtr next; // successor node, or first element if head
     NodePtr prev; // predecessor node, or last element if head
-    ValueType myValue; // the stored value, unused if head
+    _ValueType myValue; // the stored value, unused if head
 
 private:
     ListNode& operator=(const ListNode&);
@@ -748,13 +748,13 @@ public:
     typedef typename MyBase::NodeAllocator NodeAllocator;
 
     typedef _AllocatorType allocator_type;
+    typedef typename MyBase::value_type value_type;
     typedef typename MyBase::size_type size_type;
     typedef typename MyBase::difference_type difference_type;
     typedef typename MyBase::pointer pointer;
     typedef typename MyBase::const_pointer const_pointer;
     typedef typename MyBase::reference reference;
     typedef typename MyBase::const_reference const_reference;
-    typedef typename MyBase::value_type value_type;
 
     typedef typename MyBase::const_iterator const_iterator;
     typedef typename MyBase::iterator iterator;

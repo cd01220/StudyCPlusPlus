@@ -2,11 +2,9 @@
 #define _MyContainer_h_
 
 class ContainerBase;
-class IterBase: public std::iterator<std::forward_iterator_tag, int>
+class IterBase 
 {
 public:
-    typedef const reference const_reference;
-
     IterBase(ContainerBase *container): myContainer(container)
     {}
 
@@ -17,63 +15,49 @@ private:
     ContainerBase *myContainer;
 };
 
-class ContainerBase: public std::iterator<std::forward_iterator_tag, int>
+class ContainerBase
 {
 public:
-    typedef const reference const_reference;
-
     std::list<IterBase> *myIterList;
 };
 
 /////////////////////////////////////////////////////////////////////////////////
 template<typename ContainerType>
-class Iterator: public IterBase    
+class ConstIterator: public IterBase    
 {
 public:
-    typedef ContainerType          MyContainer;
-    typedef typename MyContainer::NodePtr NodePtr;
-
-    typedef IterBase               MyBase;
-    typedef Iterator<MyContainer>  MyIter;
-    typedef const MyIter           MyConstIter;
+    typedef ContainerType                 MyContainer;
     
-    Iterator(): MyBase(nullptr), ptr(NodePtr())
+    typedef IterBase                     MyBase;
+    typedef ConstIterator<ContainerType> MyIter;
+    typedef std::bidirectional_iterator_tag iterator_category;
+
+    typedef typename MyContainer::NodePtr NodePtr;
+    typedef typename MyContainer::value_type value_type;
+    typedef typename MyContainer::size_type size_type;
+    typedef typename MyContainer::difference_type difference_type;
+    typedef typename MyContainer::const_pointer pointer;
+    typedef typename MyContainer::const_reference reference;
+
+    ConstIterator(): MyBase(nullptr), ptr(NodePtr())
     {}
 
-    Iterator(MyContainer *container, NodePtr thePtr)
+    ConstIterator(MyContainer *container, NodePtr thePtr)
         : MyBase(container), ptr(thePtr)
     {}
 
-    const_reference operator*() const
+    reference operator*() const
     {
         return (MyContainer::GetValue(this->ptr));
     }
 
-    reference operator*()
-    {
-        return (MyContainer::GetValue(this->ptr));
-    }
-
-    MyConstIter& operator++() const
+    MyIter& operator++() const
     {   // pre-increment
         ptr = MyContainer::GetNextNodePtr(this->ptr);
         return (*this);
     }
 
-    MyConstIter operator++(int) const
-    {   // post-increment
-        MyIter tmp = *this;
-        ++*this;
-        return (tmp);
-    }
-
-    MyIter& operator++()
-    {   // pre-increment
-        ptr = MyContainer::GetNextNodePtr(this->ptr);
-        return (*this);
-    }
-
-    MyIter operator++(int)
+    MyIter operator++(int) const
     {   // post-increment
         MyIter tmp = *this;
         ++*this;
@@ -90,20 +74,66 @@ public:
         return (!(*this == right));
     }
 
-private:
+protected:
     NodePtr ptr;
+};
+
+template<typename ContainerType>
+class Iterator: public ConstIterator<ContainerType> 
+{
+public:
+    typedef ConstIterator<ContainerType> MyBase;
+    typedef Iterator<ContainerType>      MyIter;
+
+    typedef std::bidirectional_iterator_tag iterator_category;
+
+    typedef typename MyContainer::NodePtr NodePtr;
+    typedef typename MyContainer::value_type value_type;
+    typedef typename MyContainer::size_type size_type;
+    typedef typename MyContainer::difference_type difference_type;
+    typedef typename MyContainer::pointer pointer;
+    typedef typename MyContainer::reference reference;
+    
+    Iterator()
+    {}
+
+    Iterator(MyContainer *container, NodePtr ptr)
+        : MyBase(container, ptr)
+    {}
+
+    reference operator*()
+    {
+        return (MyContainer::GetValue(this->ptr));
+    }
+
+    MyIter& operator++()
+    {   // pre-increment
+        ptr = MyContainer::GetNextNodePtr(this->ptr);
+        return (*this);
+    }
+
+    MyIter operator++(int)
+    {   // post-increment
+        MyIter tmp = *this;
+        ++*this;
+        return (tmp);
+    }
 };
 
 /////////////////////////////////////////////////////////////////////////////////
 class ContainerValue: public ContainerBase
 {
 public:
-    typedef std::list<int>::iterator NodePtr;
+    typedef std::list<int> ValueType;
+    typedef ValueType::iterator NodePtr;
 
-    static reference GetValue(NodePtr ptr)
-    {
-        return *ptr;
-    }
+    typedef ValueType::value_type value_type;
+    typedef ValueType::size_type size_type;
+    typedef ValueType::difference_type difference_type;
+    typedef ValueType::pointer pointer;
+    typedef ValueType::const_pointer const_pointer;
+    typedef ValueType::reference reference;
+    typedef ValueType::const_reference const_reference;
 
     static NodePtr GetNextNodePtr(NodePtr node)
     {   // return reference to successor pointer in node
@@ -111,15 +141,56 @@ public:
         return node;
     }
 
+    static reference GetValue(NodePtr ptr)
+    {
+        return *ptr;
+    }
+
 protected:
     std::list<int> myList;
+};
+
+class ContainerAlloc: public ContainerValue
+{
+public:
+    typedef ContainerAlloc MyType;
+    typedef ContainerValue MyBase;
+    typedef MyBase::NodePtr NodePtr;
+
+    ContainerAlloc()
+    {
+        AllocProxy();
+    }
+
+    ~ContainerAlloc()
+    {   // destroy head node
+        FreeProxy();
+    }
+
+    void AllocProxy()
+    {	// construct proxy from _Alnod
+
+    }
+
+    void FreeProxy()
+    {	// destroy proxy
+    }
 };
 
 class Container: public ContainerValue
 {
 public:
+    typedef ContainerValue MyBase;
     typedef Iterator<Container>::MyIter      iterator;
-    typedef Iterator<Container>::MyConstIter const_iterator;
+    typedef ConstIterator<Container>::MyIter const_iterator;
+
+    typedef MyBase::value_type value_type;
+    typedef MyBase::size_type size_type;
+    typedef MyBase::difference_type difference_type;
+    typedef MyBase::pointer pointer;
+    typedef MyBase::const_pointer const_pointer;
+    typedef MyBase::reference reference;
+    typedef MyBase::const_reference const_reference;
 
     iterator Begin()
     {
