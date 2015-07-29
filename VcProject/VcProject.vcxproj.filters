@@ -12,6 +12,12 @@
     <Filter Include="Iterator">
       <UniqueIdentifier>{0f22dbbe-9959-4cab-b12a-8bef850adf3c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Xml">
+      <UniqueIdentifier>{ad4bc3a8-61f5-414e-b0a4-4fd38b794209}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{04c7657e-312d-4f5d-987a-a9d208160606}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Codes\Main.cpp">
@@ -25,6 +31,9 @@
     </ClCompile>
     <ClCompile Include="..\Codes\SystemError.cpp">
       <Filter>Public</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Codes\MyLibXml2.cpp">
+      <Filter>Xml</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -55,8 +64,19 @@
     <ClInclude Include="..\Codes\TestItorator.h">
       <Filter>Iterator</Filter>
     </ClInclude>
+    <ClInclude Include="..\Codes\MyLibXml2.h">
+      <Filter>Xml</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="..\XmlFiles\AddressListXml.xml">
+      <Filter>资源文件</Filter>
+    </Xml>
+    <Xml Include="..\XmlFiles\C++SdkIncludeDir.xml">
+      <Filter>资源文件</Filter>
+    </Xml>
   </ItemGroup>
 </Project>

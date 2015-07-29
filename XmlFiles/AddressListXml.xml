@@ -1,0 +1,41 @@
+<?xml version = "1.0" encoding="gb2312" standalone = "yes"?>
+<!DOCTYPE AddressList[
+    <!ELEMENT AddressList (Contact)*>
+    <!ELEMENT Contact (ID,Name,Email,PhoneNumber,Company,Address)>
+    <!ELEMENT ID (#PCDATA)>
+    <!ELEMENT Name (#PCDATA)>
+    <!ELEMENT Email (#PCDATA)>
+    <!ELEMENT PhoneNumber (#PCDATA)>
+    <!ELEMENT Company (#PCDATA)>
+    <!ELEMENT Address (Street,City,Province)>
+    <!ELEMENT Street (#PCDATA)>
+    <!ELEMENT City (#PCDATA)>
+    <!ELEMENT Province (#PCDATA)>
+]>
+
+<AddressList>
+    <Contact>
+        <ID>001</ID>
+        <Name>ZhangSan</Name>
+        <Email>zhang@aaa.com</Email>
+        <PhoneNumber>(010)62345678</PhoneNumber>
+        <Company>ACompany</Company>
+        <Address>
+            <Street>QiongLou Street</Street>
+            <City>ChengDu</City>
+            <Province>SiChuan</Province>
+        </Address>
+    </Contact>
+    <Contact>
+        <ID>002</ID>
+        <Name>LiSi</Name>
+        <Email>li@bbb.org</Email>
+        <PhoneNumber>(021)87654321</PhoneNumber>
+        <Company>BCompany</Company>
+        <Address>
+            <Street>BaiCao Street</Street>
+            <City>ChengDu</City>
+            <Province>SiChuan</Province>
+        </Address>
+    </Contact>
+</AddressList>
