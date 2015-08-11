@@ -1,34 +1,16 @@
 #ifndef _MyContainer_h_
 #define _MyContainer_h_
 
-class ContainerBase;
-class IterBase 
-{
-public:
-    IterBase(ContainerBase *container): myContainer(container)
-    {}
-
-    ContainerBase* GetContainer()
-    { return myContainer; }
-
-private:
-    ContainerBase *myContainer;
-};
-
-class ContainerBase
-{
-public:
-    std::list<IterBase> *myIterList;
-};
+#include "ContainerBase.h"
 
 /////////////////////////////////////////////////////////////////////////////////
 template<typename ContainerType>
-class ConstIterator: public IterBase    
+class ConstIterator: public IteratorBase    
 {
 public:
     typedef ContainerType                 MyContainer;
     
-    typedef IterBase                     MyBase;
+    typedef IteratorBase                     MyBase;
     typedef ConstIterator<ContainerType> MyIter;
     typedef std::bidirectional_iterator_tag iterator_category;
 
@@ -39,11 +21,11 @@ public:
     typedef typename MyContainer::const_pointer pointer;
     typedef typename MyContainer::const_reference reference;
 
-    ConstIterator(): MyBase(nullptr), ptr(NodePtr())
+    ConstIterator(): ptr(NodePtr())
     {}
 
     ConstIterator(MyContainer *container, NodePtr thePtr)
-        : MyBase(container), ptr(thePtr)
+        : ptr(thePtr)
     {}
 
     reference operator*() const

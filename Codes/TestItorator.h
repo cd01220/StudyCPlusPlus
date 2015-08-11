@@ -4,11 +4,11 @@
 #include "List.h"
 #include "MyContainer.h"
 
-inline MyStlList::List<int>::iterator GetIter()
+inline List<int>::iterator GetIter()
 {
     const int intArray[5] = {1, 2, 3, 4, 5};    
-    MyStlList::List<int> intList(intArray, intArray+5);
-    MyStlList::List<int>::iterator iter = intList.Begin();
+    List<int> intList(intArray, intArray+5);
+    List<int>::iterator iter = intList.Begin();
 
     std::cout << iter.GetContainer() << std::endl;
     return iter;
@@ -16,7 +16,7 @@ inline MyStlList::List<int>::iterator GetIter()
 
 inline void TestIllegalOperation()
 {
-    MyStlList::List<int>::iterator iter = GetIter();
+    List<int>::iterator iter = GetIter();
     std::cout << iter.GetContainer() << std::endl;
     std::cout << *iter << std::endl;  //runtime error, iterator is not dereferencable
 }

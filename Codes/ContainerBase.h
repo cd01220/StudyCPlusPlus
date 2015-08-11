@@ -1,9 +1,6 @@
 #ifndef _ContainerBase_h_
 #define _ContainerBase_h_
 
-namespace MyStlList
-{
-
 struct ContainerBase0
 {   // base of all containers
     void OrphanAll()
@@ -27,69 +24,70 @@ struct IteratorBase0
     }
 };
 
-struct ContainerBase12;
-struct IteratorBase12;
+struct ContainerBase;
+struct IteratorBase;
 
+//stl: struct _Container_proxy
 struct ContainerProxy
 {   // store head of iterator chain and back pointer
     ContainerProxy(): myContainer(0), myFistIter(0)
     {   // construct from pointers
     }
 
-    const ContainerBase12 *myContainer;
-    IteratorBase12 *myFistIter;
+    const ContainerBase *myContainer;
+    IteratorBase *myFistIter;
 };
 
-struct ContainerBase12
+//stl: struct _Container_base12;
+struct ContainerBase
 {   // store pointer to ContainerProxy
-public:
-    ContainerBase12(): myProxy(0)
+    ContainerBase(): myProxy(0)
     {   // construct childless container
     }
 
-    ContainerBase12(const ContainerBase12&): myProxy(0)
+    ContainerBase(const ContainerBase&): myProxy(0)
     {   // copy a container
     }
 
-    ContainerBase12& operator=(const ContainerBase12&)
+    ContainerBase& operator=(const ContainerBase&)
     {   // assign a container
         return (*this);
     }
 
-    ~ContainerBase12()
+    ~ContainerBase()
     {   // destroy the container
         OrphanAll();
     }
 
-    IteratorBase12 **GetpFirstIter() const
+    IteratorBase **GetpFirstIter() const
     {   // get address of iterator chain
-        return (myProxy == 0 ? 0 : &myProxy->myFistIter);
+        return (myProxy == nullptr ? nullptr : &myProxy->myFistIter);
     }
 
     // orphan all iterators
     void OrphanAll();
 
     // swap all iterators
-    void SwapAll(ContainerBase12&)
+    void SwapAll(ContainerBase&)
     {}
 
     ContainerProxy *myProxy;
 };
 
-struct IteratorBase12
+//stl:  struct _Iterator_base12;
+struct IteratorBase 
 {   // store links to container proxy, next iterator
-public:
-    IteratorBase12(): myProxy(0), myNextIter(0)
+    IteratorBase(): myProxy(0), myNextIter(0)
     {   // construct orphaned iterator
     }
 
-    IteratorBase12(const IteratorBase12& right)
+    IteratorBase(const IteratorBase& right)
         : myProxy(0), myNextIter(0)
     {   // copy an iterator
         *this = right;
     }
 
-    IteratorBase12& operator=(const IteratorBase12& right)
+    IteratorBase& operator=(const IteratorBase& right)
     {   // assign an iterator
         if (myProxy == right.myProxy)
         {
@@ -104,12 +102,12 @@ public:
         return (*this);
     }
 
-    ~IteratorBase12()
+    ~IteratorBase()
     {   // destroy the iterator
         OrphanMe();
     }
 
-    void Adopt(const ContainerBase12 *parent)
+    void Adopt(const ContainerBase *parent)
     {   // adopt this iterator by parent
         if (parent == 0)
         {   // no future parent, just disown current parent
@@ -134,12 +132,12 @@ public:
         myProxy = 0;
     }
 
-    const ContainerBase12 *GetContainer() const
+    const ContainerBase *GetContainer() const
     {   // get owning container
         return (myProxy == 0 ? 0 : myProxy->myContainer);
     }
 
-    IteratorBase12 **GetNextIter()
+    IteratorBase **GetNextIter()
     {   // get address of remaining iterator chain
         return (&myNextIter);
     }
@@ -148,7 +146,7 @@ public:
     {   // cut ties with parent
         if (myProxy != 0)
         {	// adopted, remove self from list
-            IteratorBase12 **next = &myProxy->myFistIter;
+            IteratorBase **next = &myProxy->myFistIter;
             while (*next != 0 && *next != this)
                 next = &(*next)->myNextIter;
 
@@ -159,22 +157,20 @@ public:
     }
 
     ContainerProxy *myProxy;
-    IteratorBase12 *myNextIter;
+    IteratorBase *myNextIter;
 };
 
-typedef ContainerBase12 ContainerBase;
-typedef IteratorBase12 IteratorBase;
-
-inline void ContainerBase12::OrphanAll()
+inline void ContainerBase::OrphanAll()
 {
     if (myProxy != 0)
     {	// proxy allocated, drain it
-        for (IteratorBase12 **next = &myProxy->myFistIter;
-            *next != 0; *next = (*next)->myNextIter)
+        for (IteratorBase **next = &myProxy->myFistIter;
+            *next != 0; 
+            *next = (*next)->myNextIter)
             (*next)->myProxy = 0;
         myProxy->myFistIter = 0;
     }
 }
 
-} /* namespace MyStlList */
+/////////////////////////////////////////////////////////////////////////////////
 #endif /* _ContainerBase_h_ */

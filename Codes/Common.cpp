@@ -2,7 +2,6 @@
 
 #include "Common.h"
 
-CxxBeginNameSpace(Router)
 using namespace std;
 
 #if _MSC_VER >= 1700 || GCC_VERSION > 40600
@@ -113,5 +112,3 @@ size_t Write32(uchar_t* buf, uint32_t value)
     }
     return size;
 }
-
-CxxEndNameSpace

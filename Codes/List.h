@@ -2,8 +2,6 @@
 #define _MyList_h_
 
 #include "ContainerBase.h"
-namespace MyStlList
-{
 
 template<class _Category,
         class _ValueType,
@@ -1720,6 +1718,5 @@ inline void swap(List<_Type, _Alloc>& left, List<_Type, _Alloc>& right)
     left.swap(right);
 }
 
-}  /* namespace MyStlList */
 #endif /* _List_h_ */
 
