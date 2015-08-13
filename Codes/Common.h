@@ -2,6 +2,11 @@
 #define _Common_h_
 
 #if _MSC_VER >= 1700 || GCC_VERSION > 40600
+/*
+Example:
+    uchar_t* mem;
+    cout << MemStream(mem) << endl;
+*/
 
 template<class T>
 class MemStream
@@ -53,17 +58,20 @@ inline std::ostream& operator << (std::ostream& os, MemStream<uchar_t> const& me
 class Mac
 {
 public:    
+    Mac();
     Mac(const uchar_t*);
     Mac(Mac const&);
     Mac const& operator =(Mac const&);
     bool IsBroadcast() const;
     bool IsZero() const;
+    uchar_t* GetPtr() const;
 
     int Compare(Mac const&) const;
+    int Compare(const uchar_t*) const;
+    
     void Put(std::ostream&) const;
 
-private:
-    Mac();
+private:    
     std::shared_ptr<uchar_t> mac;
 };
 std::ostream& operator << (std::ostream& os, Mac const& mac);
@@ -90,11 +98,15 @@ inline bool operator > (Mac const& left, Mac const& right)
 #endif
 
 /******************Read from / Write to packet buffer******************/
+size_t Read8(uchar_t* buf, uchar_t&);
 size_t Read16(uchar_t* buf, uint16_t&);
 size_t Read32(uchar_t* buf, uint32_t&);
 
+size_t Write8(uchar_t* buf, uchar_t);
 size_t Write16(uchar_t* buf, uint16_t);
 size_t Write32(uchar_t* buf, uint32_t);
+
+size_t MemCopy(void *dest, size_t destSize, const void *src, size_t count);
 
 /******************shared_ptr<...> deleter******************/
 /*

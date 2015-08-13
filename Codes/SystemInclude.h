@@ -7,7 +7,7 @@
 #endif
 
 /*** OS header. ***/
-#ifdef _WIN32    
+#ifdef _WIN32
     /* Disables fopen(), strcpy(), ... security warning on Microsoft compilers.
      * The _CRT_SECURE_NO_WARNINGS must be defined before including any system 
      * header files which may cause the security warning.
@@ -27,7 +27,7 @@
 #       define DEBUG_CLIENTBLOCK   new( _CLIENT_BLOCK, __FILE__, __LINE__)
 #   else
 #       define DEBUG_CLIENTBLOCK
-#endif // _DEBUG
+#   endif // _DEBUG
 #endif
 
 #ifdef __linux
@@ -63,6 +63,7 @@
 #   include <map>
 #   include <vector>
 #   include <set>
+#   include <bitset>
 #   include <typeinfo>
 #   include <functional>
 #   include <algorithm>

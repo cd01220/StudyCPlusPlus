@@ -14,6 +14,11 @@ std::ostream& ErrOStream(char const*, uint32_t);
 #define prtstrm ErrOStream(__func__, __LINE__)
 #define errstrm ErrOStream(__func__, __LINE__)
 
+/*Example:  
+    char a = 10;  
+    cout <<  DbgExpandVar(a, int);
+    out put:  a = 10
+*/
 #define DbgExpandVar(v, type) #v << " = " << (type)v
 
 class DebugFlag

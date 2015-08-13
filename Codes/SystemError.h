@@ -4,8 +4,8 @@
 #if _MSC_VER >= 1700 || GCC_VERSION > 40600
 /* 
 Example1:
-    error_code errCode = router_error_t::file_not_exists;
-    if (errCode == router_error_t::file_not_exists)
+    error_code errCode = system_error_t::file_not_exists;
+    if (errCode == system_error_t::file_not_exists)
     {
         cout << errCode.message() << endl;
     }
@@ -13,7 +13,7 @@ Example 2:
     to raise an exception:
     void Func()
     {
-        throw system_error(router_error_t::bad_file_type);
+        throw system_error(system_error_t::bad_file_type);
     }
 
     to catch an exception:
@@ -52,4 +52,4 @@ namespace std
 }
 
 #endif
-#endif /* _RouterError_h_ */
+#endif /* _SystemError_h_ */
