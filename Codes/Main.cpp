@@ -4,12 +4,13 @@
 #include "SystemError.h" 
 #include "TestItorator.h"
 #include "MyLibXml2.h"
+#include "VariadicExpand.h"
 #include "Main.h"
 
 using namespace std;
-
+    
 int main()
 {
-    TestMyContainer();
-	return 0;
+
+    return 0;
 }

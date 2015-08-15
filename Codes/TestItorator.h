@@ -2,7 +2,6 @@
 #define _TestList_h_
 
 #include "List.h"
-#include "MyContainer.h"
 
 inline List<int>::iterator GetIter()
 {
@@ -19,20 +18,6 @@ inline void TestIllegalOperation()
     List<int>::iterator iter = GetIter();
     std::cout << iter.GetContainer() << std::endl;
     std::cout << *iter << std::endl;  //runtime error, iterator is not dereferencable
-}
-
-
-inline void TestMyContainer()
-{
-    Container container;
-    container.Add(1);
-    container.Add(2);
-
-    Container::iterator iter;
-    for (iter = container.Begin(); iter != container.End(); ++iter)
-    {
-        std::cout << *iter << ", ";
-    }
 }
 
 #endif

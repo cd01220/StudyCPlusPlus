@@ -18,6 +18,9 @@
     <Filter Include="资源文件">
       <UniqueIdentifier>{04c7657e-312d-4f5d-987a-a9d208160606}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Mixture">
+      <UniqueIdentifier>{3132ab45-bd98-4373-96c9-56ef479f11fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Codes\Main.cpp">
@@ -58,14 +61,14 @@
     <ClInclude Include="..\Codes\List.h">
       <Filter>Iterator</Filter>
     </ClInclude>
-    <ClInclude Include="..\Codes\MyContainer.h">
-      <Filter>Iterator</Filter>
-    </ClInclude>
     <ClInclude Include="..\Codes\TestItorator.h">
       <Filter>Iterator</Filter>
     </ClInclude>
     <ClInclude Include="..\Codes\MyLibXml2.h">
       <Filter>Xml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Codes\VariadicExpand.h">
+      <Filter>Mixture</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

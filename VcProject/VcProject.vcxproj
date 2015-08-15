@@ -92,10 +92,10 @@
     <ClInclude Include="..\Codes\MyLibXml2.h" />
     <ClInclude Include="..\Codes\Main.h" />
     <ClInclude Include="..\Codes\List.h" />
-    <ClInclude Include="..\Codes\MyContainer.h" />
     <ClInclude Include="..\Codes\SystemError.h" />
     <ClInclude Include="..\Codes\SystemInclude.h" />
     <ClInclude Include="..\Codes\TestItorator.h" />
+    <ClInclude Include="..\Codes\VariadicExpand.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\ReadMe.txt" />

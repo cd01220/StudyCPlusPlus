@@ -23,31 +23,39 @@ struct Iterator012: public _Base
 /******** Template Class ListUncheckedConstIterator ********
     std::class _List_unchecked_const_iterator 
 */
-template<class _MyList, class _Base = IteratorBase0>
+/* Base's optional type { IteratorBase0 | IteratorBase } 
+   1 class ListConstIterator: public ListUncheckedConstIterator<MyList, IteratorBase> {};
+   2 ListConstIterator::Unchecked()
+    UncheckedType Unchecked() const
+    {   // make an unchecked iterator
+        return (UncheckedType(this->ptr, (MyList *)this->GetContainer()));
+    }
+*/
+template<class MyList, class Base = IteratorBase0>
 class ListUncheckedConstIterator
     : public Iterator012<std::bidirectional_iterator_tag,
-      typename _MyList::value_type,
-      typename _MyList::difference_type,
-      typename _MyList::const_pointer,
-      typename _MyList::const_reference,
-      _Base> 
+      typename MyList::value_type,
+      typename MyList::difference_type,
+      typename MyList::const_pointer,
+      typename MyList::const_reference,
+      Base> 
 {   // unchecked iterator for non-mutable list
 public:
-    typedef ListUncheckedConstIterator<_MyList, _Base> MyIter;
+    typedef ListUncheckedConstIterator<MyList, Base> MyIter;
     typedef std::bidirectional_iterator_tag iterator_category;
 
-    typedef typename _MyList::NodePtr NodePtr;
-    typedef typename _MyList::value_type value_type;
-    typedef typename _MyList::difference_type difference_type;
-    typedef typename _MyList::const_pointer pointer;
-    typedef typename _MyList::const_reference reference;
+    typedef typename MyList::NodePtr NodePtr;
+    typedef typename MyList::value_type value_type;
+    typedef typename MyList::difference_type difference_type;
+    typedef typename MyList::const_pointer pointer;
+    typedef typename MyList::const_reference reference;
 
     ListUncheckedConstIterator()
     : ptr(0)
     {   // construct with null node pointer
     }
 
-    ListUncheckedConstIterator(NodePtr node, const _MyList *list)
+    ListUncheckedConstIterator(NodePtr node, const MyList *list)
     : ptr(node)
     {   // construct with node pointer
         this->Adopt(list);
@@ -65,7 +73,7 @@ public:
 
     MyIter& operator++()
     {   // pre-increment
-        ptr = _MyList::GetNextNodePtr(ptr);
+        ptr = MyList::GetNextNodePtr(ptr);
         return (*this);
     }
 
@@ -78,7 +86,7 @@ public:
 
     MyIter& operator--()
     {   // pre-decrement
-        ptr = _MyList::GetPrevNodePtr(ptr);
+        ptr = MyList::GetPrevNodePtr(ptr);
         return (*this);
     }
 
@@ -110,26 +118,26 @@ public:
 /******** Template Class ListUncheckedConstIterator ********
     std::_List_unchecked_iterator 
 */
-template<class _MyList>
+template<class MyList>
 class ListUncheckedIterator
-    : public ListUncheckedConstIterator<_MyList>
+    : public ListUncheckedConstIterator<MyList>
 {   // unchecked iterator for mutable list
 public:
-    typedef ListUncheckedIterator<_MyList> MyIter;
-    typedef ListUncheckedConstIterator<_MyList> MyBase;
+    typedef ListUncheckedIterator<MyList> MyIter;
+    typedef ListUncheckedConstIterator<MyList> MyBase;
     typedef std::bidirectional_iterator_tag iterator_category;
 
-    typedef typename _MyList::NodePtr NodePtr;
-    typedef typename _MyList::value_type value_type;
-    typedef typename _MyList::difference_type difference_type;
-    typedef typename _MyList::pointer pointer;
-    typedef typename _MyList::reference reference;
+    typedef typename MyList::NodePtr NodePtr;
+    typedef typename MyList::value_type value_type;
+    typedef typename MyList::difference_type difference_type;
+    typedef typename MyList::pointer pointer;
+    typedef typename MyList::reference reference;
 
     ListUncheckedIterator()
     {   // construct with null node
     }
 
-    ListUncheckedIterator(NodePtr node, const _MyList *_Plist)
+    ListUncheckedIterator(NodePtr node, const MyList *_Plist)
         : MyBase(node, _Plist)
     {   // construct with node pointer node
     }
@@ -174,29 +182,29 @@ public:
 /******** Template Class ListConstIterator ********
     prototype: std::_List_const_iterator 
 */
-template<class _MyList>
+template<class MyList>
 class ListConstIterator
-    : public ListUncheckedConstIterator<_MyList, IteratorBase>
+    : public ListUncheckedConstIterator<MyList, IteratorBase>
 {   // iterator for non-mutable list
 public:
-    typedef ListConstIterator<_MyList> MyIter;
-    typedef ListUncheckedConstIterator<_MyList, IteratorBase> MyBase;
+    typedef ListConstIterator<MyList> MyIter;
+    typedef ListUncheckedConstIterator<MyList, IteratorBase> MyBase;
     typedef std::bidirectional_iterator_tag iterator_category;
 
-    typedef typename _MyList::NodePtr NodePtr;
-    typedef typename _MyList::value_type value_type;
-    typedef typename _MyList::difference_type difference_type;
-    typedef typename _MyList::const_pointer pointer;
-    typedef typename _MyList::const_reference reference;
+    typedef typename MyList::NodePtr NodePtr;
+    typedef typename MyList::value_type value_type;
+    typedef typename MyList::difference_type difference_type;
+    typedef typename MyList::const_pointer pointer;
+    typedef typename MyList::const_reference reference;
 
-    typedef ListUncheckedConstIterator<_MyList> UncheckedType;
+    typedef ListUncheckedConstIterator<MyList> UncheckedType;
 
     ListConstIterator()
         : MyBase()
     {   // construct with null node pointer
     }
 
-    ListConstIterator(NodePtr node, const _MyList *_Plist)
+    ListConstIterator(NodePtr node, const MyList *_Plist)
         : MyBase(node, _Plist)
     {   // construct with node pointer node
     }    
@@ -209,25 +217,36 @@ public:
 
     UncheckedType Unchecked() const
     {   // make an unchecked iterator
-        return (UncheckedType(this->ptr, (_MyList *)this->GetContainer()));
+        return (UncheckedType(this->ptr, (MyList *)this->GetContainer()));
     }
 
     reference operator*() const
     {   // return designated value
+#ifdef _DEBUG
         if (this->GetContainer() == 0
             || this->ptr == 0
-            || this->ptr == ((_MyList *)this->GetContainer())->myHead)
+            || this->ptr == ((MyList *)this->GetContainer())->myHead)
         {	// report error
             std::_DEBUG_ERROR("list iterator not dereferencable");
             _SCL_SECURE_OUT_OF_RANGE;
         }
+#endif
 
-        return (_MyList::GetValue(this->ptr));
+        return (MyList::GetValue(this->ptr));
     }
 
     MyIter& operator++()
     {   // pre-increment
-        this->ptr = _MyList::GetNextNodePtr(this->ptr);
+#ifdef _DEBUG
+        if (this->GetContainer() == 0
+            || this->ptr == 0
+            || this->ptr == ((MyList *)this->GetContainer())->myHead)
+        {	// report error
+            std::_DEBUG_ERROR("list iterator not dereferencable");
+            _SCL_SECURE_OUT_OF_RANGE;
+        }
+#endif
+        this->ptr = MyList::GetNextNodePtr(this->ptr);
         return (*this);
     }
 
@@ -240,7 +259,16 @@ public:
 
     MyIter& operator--()
     {   // pre-decrement
-        this->ptr = _MyList::GetPrevNodePtr(this->ptr);
+#ifdef _DEBUG
+        if (this->GetContainer() == 0
+            || this->ptr == 0
+            || this->ptr == ((MyList *)this->GetContainer())->myHead)
+        {	// report error
+            std::_DEBUG_ERROR("list iterator not dereferencable");
+            _SCL_SECURE_OUT_OF_RANGE;
+        }
+#endif
+        this->ptr = MyList::GetPrevNodePtr(this->ptr);
         return (*this);
     }
 
@@ -262,17 +290,17 @@ public:
     }
 };
 
-template<class _MyList> inline
-typename ListConstIterator<_MyList>::UncheckedType
-Unchecked(ListConstIterator<_MyList> iter)
+template<class MyList> inline
+typename ListConstIterator<MyList>::UncheckedType
+Unchecked(ListConstIterator<MyList> iter)
 {   // convert to unchecked
     return (iter.Unchecked());
 }
 
-template<class _MyList>
-inline ListConstIterator<_MyList>&
-Rechecked(ListConstIterator<_MyList>& iter,    
-          typename ListConstIterator<_MyList>::UncheckedType right)
+template<class MyList>
+inline ListConstIterator<MyList>&
+Rechecked(ListConstIterator<MyList>& iter,    
+          typename ListConstIterator<MyList>::UncheckedType right)
 {   // convert to checked
     return (iter.Rechecked(right));
 }
@@ -280,28 +308,28 @@ Rechecked(ListConstIterator<_MyList>& iter,
 /******** Template Class ListIterator ********
     prototype: std::_List_iterator 
 */
-template<class _MyList>
+template<class MyList>
 class ListIterator
-    : public ListConstIterator<_MyList>
+    : public ListConstIterator<MyList>
 {   // iterator for mutable list
 public:
-    typedef ListConstIterator<_MyList> MyBase;
-    typedef ListIterator<_MyList> MyIter;
+    typedef ListConstIterator<MyList> MyBase;
+    typedef ListIterator<MyList> MyIter;
     typedef std::bidirectional_iterator_tag iterator_category;
 
-    typedef typename _MyList::NodePtr NodePtr;
-    typedef typename _MyList::value_type value_type;
-    typedef typename _MyList::difference_type difference_type;
-    typedef typename _MyList::pointer pointer;
-    typedef typename _MyList::reference reference;
+    typedef typename MyList::NodePtr NodePtr;
+    typedef typename MyList::value_type value_type;
+    typedef typename MyList::difference_type difference_type;
+    typedef typename MyList::pointer pointer;
+    typedef typename MyList::reference reference;
 
-    typedef ListUncheckedIterator<_MyList> UncheckedType;
+    typedef ListUncheckedIterator<MyList> UncheckedType;
 
     ListIterator()
     {   // construct with null node
     }
 
-    ListIterator(NodePtr node, const _MyList *list)
+    ListIterator(NodePtr node, const MyList *list)
         : MyBase(node, list)
     {   // construct with node pointer node
     }    
@@ -314,7 +342,7 @@ public:
 
     UncheckedType Unchecked() const
     {   // make an unchecked iterator
-        return (UncheckedType(this->ptr, (_MyList *)this->GetContainer()));
+        return (UncheckedType(this->ptr, (MyList *)this->GetContainer()));
     }
 
     reference operator*() const
@@ -354,16 +382,16 @@ public:
     }
 };
 
-template<class _MyList>
-inline typename ListIterator<_MyList>::UncheckedType
-Unchecked(ListIterator<_MyList> iter)
+template<class MyList>
+inline typename ListIterator<MyList>::UncheckedType
+Unchecked(ListIterator<MyList> iter)
 {   // convert to unchecked
     return (iter.Unchecked());
 }
 
-template<class _MyList> inline ListIterator<_MyList>&
-Rechecked(ListIterator<_MyList>& iter,
-    typename ListIterator<_MyList>::UncheckedType right)
+template<class MyList> inline ListIterator<MyList>&
+Rechecked(ListIterator<MyList>& iter,
+    typename ListIterator<MyList>::UncheckedType right)
 {   // convert to checked
     return (iter.Rechecked(right));
 }
@@ -405,13 +433,13 @@ private:
     ListNode& operator=(const ListNode&);
 };
 
-template<class _ValueType>
-struct ListNode<_ValueType, void *>
+template<class ValueType>
+struct ListNode<ValueType, void *>
 {   // list node
-    typedef ListNode<_ValueType, void *> *NodePtr;
+    typedef ListNode<ValueType, void *> *NodePtr;
     NodePtr next; // successor node, or first element if head
     NodePtr prev; // predecessor node, or last element if head
-    _ValueType myValue; // the stored value, unused if head
+    ValueType myValue; // the stored value, unused if head
 
 private:
     ListNode& operator=(const ListNode&);
@@ -443,7 +471,7 @@ struct ListBaseType
     typedef typename NodeAllocator::pointer NodePtr;
     typedef NodePtr& NodePtrRef;
 
-    /* ValueType should be ListValue::_ValueType */
+    /* ValueType should be ListValue::ValueType */
     typedef typename std::_If<std::_Is_simple_alloc<Allocator>::value,
         ListSimpleTypes<typename Allocator::value_type>,
         ListIterTypes<typename Allocator::value_type,
@@ -459,24 +487,24 @@ struct ListBaseType
 
 /******** Template Class ListValue ********
 prototype: std::_List_val 
-template para:  _ValueType, the list's emlement type, eg. _ValueType is "ListSimpleTypes<int>" when list<int>.
+template para:  ValueType, the list's emlement type, eg. ValueType is "ListSimpleTypes<int>" when list<int>.
 */
-template<class _ValueType>
+template<class ValueType>
 class ListValue: public ContainerBase
 {   // base class for list to hold data
 public:
-    typedef ListValue<_ValueType> MyType;
+    typedef ListValue<ValueType> MyType;
 
-    typedef typename _ValueType::NodePtr NodePtr;
+    typedef typename ValueType::NodePtr NodePtr;
     typedef NodePtr& NodePtrRef;
 
-    typedef typename _ValueType::value_type value_type;
-    typedef typename _ValueType::size_type size_type;
-    typedef typename _ValueType::difference_type difference_type;
-    typedef typename _ValueType::pointer pointer;
-    typedef typename _ValueType::const_pointer const_pointer;
-    typedef typename _ValueType::reference reference;
-    typedef typename _ValueType::const_reference const_reference;
+    typedef typename ValueType::value_type value_type;
+    typedef typename ValueType::size_type size_type;
+    typedef typename ValueType::difference_type difference_type;
+    typedef typename ValueType::pointer pointer;
+    typedef typename ValueType::const_pointer const_pointer;
+    typedef typename ValueType::reference reference;
+    typedef typename ValueType::const_reference const_reference;
 
     typedef ListConstIterator<MyType> const_iterator;
     //cout << typeid(IntList::ListValue::iterator).name() << endl;

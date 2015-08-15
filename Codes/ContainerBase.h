@@ -222,15 +222,13 @@ public:
     reference operator*() const
     {   // return designated value
 #ifdef _DEBUG
-        /* if (this->_Getcont() == 0
-                || this->_Ptr == 0
-                || this->_Ptr == ((MyContainer *)this->GetContainer())->_Myhead)
-            {   // report error
-                _DEBUG_ERROR("list iterator not incrementable");
-                _SCL_SECURE_OUT_OF_RANGE;
-            }
-         */
-        assert(this->GetContainer() != nullptr);
+        if (this->GetContainer() == nullptr
+            || this->ptr == nullptr
+            || this->ptr == ((MyContainer *)this->GetContainer())->GetMyHead())
+        {   // report error
+             //list iterator not incrementable;
+             assert(false);
+        }
 #endif
         return (MyContainer::GetValue(this->ptr));
     }
@@ -243,15 +241,13 @@ public:
     MyIter& operator++()
     {   // pre-increment
 #ifdef _DEBUG
-        /* if (this->_Getcont() == 0
-                || this->_Ptr == 0
-                || this->_Ptr == ((MyContainer *)this->GetContainer())->_Myhead)
-            {   // report error
-                _DEBUG_ERROR("list iterator not incrementable");
-                _SCL_SECURE_OUT_OF_RANGE;
-            }         
-         */
-        assert(this->GetContainer() != nullptr);
+         if (this->GetContainer() == nullptr
+                || this->ptr == nullptr
+                || this->ptr == ((MyContainer *)this->GetContainer())->GetMyHead())
+         {   // report error
+             //list iterator not incrementable;
+             assert(false);
+         }
 #endif
         ptr = MyContainer::GetNextNodePtr(this->ptr);
         return (*this);
@@ -289,6 +285,8 @@ protected:
 };
 
 /**********************class Iterator**********************/
+/* The class Iterator can be used with most of our own customized container.
+ */
 template<typename ContainerType>
 class Iterator: public ConstIterator<ContainerType> 
 {
@@ -333,6 +331,124 @@ public:
         MyIter tmp = *this;
         ++*this;
         return (tmp);
+    }
+};
+
+/**********************class ContainerValue**********************/
+template<typename T>
+class ContainerValue: public ContainerBase
+{
+public:
+    typedef std::list<T> Repository;
+    class NodePtr
+    {
+    public:
+        typedef typename std::list<T>::iterator InerIter;
+        NodePtr(): myIter()
+        {}
+        NodePtr(const InerIter& iter): myIter(iter)
+        {}
+
+        operator void*() const
+        {
+            return myIter._Ptr;
+        }
+
+        InerIter myIter;
+    };
+
+    typedef typename Repository::value_type value_type;
+    typedef typename Repository::size_type size_type;
+    typedef typename Repository::difference_type difference_type;
+    typedef typename Repository::pointer pointer;
+    typedef typename Repository::const_pointer const_pointer;
+    typedef typename Repository::reference reference;
+    typedef typename Repository::const_reference const_reference;
+
+    ContainerValue()
+    {        
+        AllocProxy();
+    }
+
+    virtual ~ContainerValue()
+    {
+        FreeProxy();
+    }
+
+    static NodePtr GetNextNodePtr(NodePtr ptr)
+    {   // return reference to successor pointer in node
+        ++ptr.myIter;
+        return ptr;
+    }
+
+    static reference GetValue(NodePtr ptr)
+    {
+        return ((reference)*ptr.myIter);
+    }
+
+    NodePtr GetMyHead()
+    {
+        return NodePtr(repository.end());
+    }
+
+    void AllocProxy()   // construct proxy from _Alnod
+    {
+        myProxy = new ContainerProxy;
+        myProxy->myContainer = this;
+    }
+
+    void FreeProxy()    // destroy proxy
+    {
+        OrphanAll();
+        delete myProxy;
+        myProxy = nullptr;
+    }
+
+protected:
+    Repository  repository;
+};
+
+/**********************class Container**********************/
+/* The class Iterator can be used as base class for most of our
+   own customized container.
+ */
+//refer to vc2012, class _List_val, class _List_alloc
+class Container: public ContainerValue<std::pair<int, int>>
+{
+public:
+    typedef Container MyType;
+    typedef ContainerValue<std::pair<int, int>>   MyBase;
+
+    typedef Iterator<Container>::MyIter      iterator;
+    typedef ConstIterator<Container>::MyIter const_iterator;
+
+    typedef MyBase::value_type value_type;
+    typedef MyBase::size_type size_type;
+    typedef MyBase::difference_type difference_type;
+    typedef MyBase::pointer pointer;
+    typedef MyBase::const_pointer const_pointer;
+    typedef MyBase::reference reference;
+    typedef MyBase::const_reference const_reference;
+
+    Container()
+    {
+        int i;
+        for (i = 0; i < 10; ++i)
+        {
+            repository.push_back(std::make_pair(i, i));
+        }
+    }
+
+    ~Container(); // destroy head node
+    
+    iterator begin()
+    {
+        return iterator(this, NodePtr(repository.begin()));
+    }
+
+    iterator end()
+    {
+        return iterator(this, NodePtr(repository.end()));
     }
 };
 
