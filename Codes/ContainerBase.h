@@ -1,6 +1,8 @@
 #ifndef _ContainerBase_h_
 #define _ContainerBase_h_
 
+#ifdef _WIN32
+
 struct ContainerBase0
 {   // base of all containers
     void OrphanAll()
@@ -452,4 +454,5 @@ public:
     }
 };
 
+#endif
 #endif /* _ContainerBase_h_ */

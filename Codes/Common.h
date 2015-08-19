@@ -74,7 +74,13 @@ public:
 private:    
     std::shared_ptr<uchar_t> mac;
 };
-std::ostream& operator << (std::ostream& os, Mac const& mac);
+
+inline std::ostream& operator << (std::ostream& os, Mac const& mac)
+{
+    mac.Put(os);
+    return os;
+}
+
 inline bool operator == (Mac const& left, Mac const& right)
 {
     return (left.Compare(right) == 0);

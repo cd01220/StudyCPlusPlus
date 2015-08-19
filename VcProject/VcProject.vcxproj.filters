@@ -70,6 +70,9 @@
     <ClInclude Include="..\Codes\VariadicExpand.h">
       <Filter>Mixture</Filter>
     </ClInclude>
+    <ClInclude Include="..\Codes\ClassCreator.h">
+      <Filter>Mixture</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\ReadMe.txt" />

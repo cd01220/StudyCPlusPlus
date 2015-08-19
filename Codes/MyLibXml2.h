@@ -1,6 +1,8 @@
 #ifndef _MyLibXml_h_
 #define _MyLibXml_h_
 
+#ifdef _WIN32
+
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 #include <libxml/xpath.h>
@@ -61,4 +63,5 @@ public:
 
 void TraverseXmlXpathNode();
 
+#endif
 #endif

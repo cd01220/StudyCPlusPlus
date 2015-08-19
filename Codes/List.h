@@ -3,6 +3,8 @@
 
 #include "ContainerBase.h"
 
+#ifdef _WIN32
+
 template<class _Category,
         class _ValueType,
         class _DifferenceType,
@@ -1746,5 +1748,6 @@ inline void swap(List<_Type, _Alloc>& left, List<_Type, _Alloc>& right)
     left.swap(right);
 }
 
+#endif
 #endif /* _List_h_ */
 

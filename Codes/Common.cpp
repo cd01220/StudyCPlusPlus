@@ -54,11 +54,6 @@ void Mac::Put(ostream& os) const
     os << MemStream<uchar_t>(mac.get(),  6);
 }
 
-ostream& operator << (ostream& os, Mac const& mac)
-{
-    mac.Put(os);
-    return os;
-}
 #endif
 
 /******************Read from / Write to packet buffer******************/
@@ -72,9 +67,9 @@ size_t Read16(uchar_t* buf, uint16_t& value)
 {
     value = 0;
     size_t size = sizeof(uint16_t);
-    for (size_t i = 0, offset = 0; i < size; ++i, offset = offset + 8)
+    for (size_t i = 0; i < size; ++i)
     {
-        value = (value << offset) | buf[i];
+        value = (value << 8) | buf[i];
     }
 
     return size;
@@ -82,10 +77,11 @@ size_t Read16(uchar_t* buf, uint16_t& value)
 
 size_t Read32(uchar_t* buf, uint32_t& value)
 {
+    value = 0;
     size_t size = sizeof(uint32_t);
-    for (size_t i = 0, offset = 0; i < size; ++i, offset = offset + 8)
+    for (size_t i = 0; i < size; ++i)
     {
-        value = (value << offset) | buf[i];
+        value = (value << 8) | buf[i];
     }
 
     return size;

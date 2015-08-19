@@ -19,8 +19,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v110</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v110</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -86,6 +86,7 @@
     <ClCompile Include="..\Codes\SystemError.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Codes\ClassCreator.h" />
     <ClInclude Include="..\Codes\ContainerBase.h" />
     <ClInclude Include="..\Codes\Common.h" />
     <ClInclude Include="..\Codes\Debug.h" />

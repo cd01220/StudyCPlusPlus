@@ -3,6 +3,7 @@
 
 #include "List.h"
 
+#ifdef _WIN32
 inline List<int>::iterator GetIter()
 {
     const int intArray[5] = {1, 2, 3, 4, 5};    
@@ -20,4 +21,5 @@ inline void TestIllegalOperation()
     std::cout << *iter << std::endl;  //runtime error, iterator is not dereferencable
 }
 
+#endif
 #endif
