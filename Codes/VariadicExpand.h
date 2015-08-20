@@ -1,6 +1,8 @@
 #ifndef _VariadicExpand_h_
 #define _VariadicExpand_h_
 
+#include "SystemInclude.h"
+
 #ifdef _WIN32
 #include <memory>
 #include <xstddef>
@@ -37,49 +39,6 @@ typedef Node* Nodeptr;
 
 _VARIADIC_EXPAND_0X(AllocatNodeMacro, , , , )
 #undef AllocatNodeMacro
-    
-
-/* Example
-int main()
-{
-    DescriptorFactory0 a;
-    DescriptorFactory1<int> b;
-    DescriptorFactory2<int, int> c;
-    DescriptorFactory2<char*, char*> d;
-
-    a.Create();
-    b.Create(1);
-    c.Create(1, 2);
-    d.Create("aaaa", "bbb");
-    return 0;
-}
-*/
-class Descriptor
-{
-public:
-    Descriptor() {}
-    Descriptor(int) {}
-    Descriptor(int, int) { std::cout << "int, int" << std::endl; }
-    Descriptor(const char*, const char*) { std::cout << "char*, char*" << std::endl;}
-};
-
-#define DefineDescriptorFactory(TEMPLATE_LIST, PADDING_LIST, LIST, COMMA, X1, X2, X3, X4) \
-	TEMPLATE_LIST(_CLASS_TYPE) \
-    class DescriptorFactory ## X1 \
-    { \
-    public: \
-        Descriptor* Create(LIST(_TYPE_ARG)) \
-        { \
-            return new Descriptor(LIST(_VAR_VAL)); \
-        } \
-    };
-
-_VARIADIC_EXPAND_0(DefineDescriptorFactory, 0, , , )
-_VARIADIC_EXPAND_1(DefineDescriptorFactory, 1, , , )
-_VARIADIC_EXPAND_2(DefineDescriptorFactory, 2, , , )
-_VARIADIC_EXPAND_3(DefineDescriptorFactory, 3, , , )
-_VARIADIC_EXPAND_4(DefineDescriptorFactory, 4, , , )
-#undef DefineDescriptorFactory
 
 #endif //#ifdef _WIN32
 #endif
