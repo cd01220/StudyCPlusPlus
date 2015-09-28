@@ -1,5 +1,6 @@
 #ifndef _ContainerBase_h_
 #define _ContainerBase_h_
+#include "SystemInclude.h"
 
 #ifdef _WIN32
 
