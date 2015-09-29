@@ -108,6 +108,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\ReadMe.txt" />
+    <Text Include="..\Tools\net-snmp-5.7.3\ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\XmlFiles\AddressListXml.xml" />

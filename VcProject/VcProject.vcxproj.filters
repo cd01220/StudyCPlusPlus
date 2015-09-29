@@ -91,6 +91,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\ReadMe.txt" />
+    <Text Include="..\Tools\net-snmp-5.7.3\ReadMe.txt">
+      <Filter>Snmp</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Xml Include="..\XmlFiles\AddressListXml.xml">
