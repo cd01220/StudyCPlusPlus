@@ -3,6 +3,7 @@
 #include "SystemInclude.h"
 
 #include "List.h"
+#include "ContainerBase.h"
 
 #ifdef _WIN32
 inline List<int>::iterator GetIter()
@@ -19,7 +20,8 @@ inline void TestIllegalOperation()
 {
     List<int>::iterator iter = GetIter();
     std::cout << iter.GetContainer() << std::endl;
-    std::cout << *iter << std::endl;  //runtime error, iterator is not dereferencable
+    //runtime error, iterator is not dereferencable.  because of the container has been freed.
+    std::cout << *iter << std::endl;  
 }
 
 #endif
