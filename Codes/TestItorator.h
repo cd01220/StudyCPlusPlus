@@ -5,6 +5,7 @@
 #include "List.h"
 #include "ContainerBase.h"
 
+#ifdef ContainerModule
 #ifdef _WIN32
 inline List<int>::iterator GetIter()
 {
@@ -24,5 +25,6 @@ inline void TestIllegalOperation()
     std::cout << *iter << std::endl;  
 }
 
+#endif
 #endif
 #endif

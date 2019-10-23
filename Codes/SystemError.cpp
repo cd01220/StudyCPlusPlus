@@ -4,7 +4,7 @@
 #if _MSC_VER >= 1700 || GCC_VERSION > 40600
 
 using namespace std;
-const char* system_category_impl::name() const
+const char* system_category_impl::name() const noexcept
 {
     return "Router error.";
 }
@@ -14,10 +14,10 @@ string system_category_impl::message(int ev) const
     string ret;
     switch(ev)
     {
-    case system_error_t::file_not_exists:
+    case (int)system_error_t::file_not_exists:
         ret = "file not exists";
         break;
-    case system_error_t::bad_file_type:
+    case (int)system_error_t::bad_file_type:
         ret = "bad file type (supposed to be pcap format, 802.11 packet)";
         break;
     default:
@@ -26,7 +26,7 @@ string system_category_impl::message(int ev) const
     return ret;
 }
 
-error_condition system_category_impl::default_error_condition(int ev) const
+error_condition system_category_impl::default_error_condition(int ev) const noexcept
 {
     return error_condition(ev, *this);
 }

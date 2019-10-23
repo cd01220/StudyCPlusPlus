@@ -2,6 +2,7 @@
 #define _ContainerBase_h_
 #include "SystemInclude.h"
 
+#ifdef ContainerModule
 #ifdef _WIN32
 
 struct ContainerBase0
@@ -338,5 +339,6 @@ public:
     }
 };
 
+#endif
 #endif
 #endif /* _ContainerBase_h_ */

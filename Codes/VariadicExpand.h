@@ -3,6 +3,7 @@
 
 #include "SystemInclude.h"
 
+#ifdef VariadicExpandModule
 #ifdef _WIN32
 #include <memory>
 #include <xstddef>
@@ -185,4 +186,5 @@ public:
 
 
 #endif //#ifdef _WIN32
+#endif
 #endif

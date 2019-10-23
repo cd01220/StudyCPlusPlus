@@ -35,9 +35,9 @@ enum class system_error_t
 class system_category_impl : public std::error_category
 {
 public:
-    virtual const char* name() const;
+    virtual const char* name() const noexcept;
     virtual std::string message(int ev) const;
-    virtual std::error_condition default_error_condition(int ev) const;
+	virtual std::error_condition default_error_condition(int ev) const noexcept;
 };
 
 const std::error_category& router_category();

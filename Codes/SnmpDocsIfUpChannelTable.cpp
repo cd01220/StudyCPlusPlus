@@ -2,6 +2,7 @@
 #include "SnmpDocsIfUpChannelTable.h"
 using namespace std;
 
+#ifdef SnmpModule
 static UsChannelCfg usChannelCfg[5] =
 {
 	{1}, {2}, {3}, {4}, {0},
@@ -471,5 +472,6 @@ int DocsIfUpChannelHandler(netsnmp_mib_handler               *handler,
     return SNMP_ERR_NOERROR;
 }
 
+#endif
 
 

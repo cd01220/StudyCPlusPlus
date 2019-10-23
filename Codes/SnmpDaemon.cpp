@@ -5,6 +5,7 @@
 
 using namespace std;
 
+#ifdef SnmpModule
 void CreateSnmpAgent()
 {
     const char *appName = "controller";
@@ -41,5 +42,5 @@ void CreateSnmpAgent()
 	    /*     --- OR ---  */
 	    agent_check_and_process(1); /* 0 == don't block */
 	}
-
 }
+#endif

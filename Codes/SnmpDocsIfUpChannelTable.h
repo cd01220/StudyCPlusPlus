@@ -8,6 +8,8 @@
 #ifndef _SnmpAgent_h_
 #define _SnmpAgent_h_
 
+#ifdef SnmpModule
+
 #include <net-snmp/net-snmp-config.h>
 #include <net-snmp/net-snmp-includes.h>
 #include <net-snmp/agent/net-snmp-agent-includes.h>
@@ -47,4 +49,5 @@ struct UsChannelCfg
 	int id;
 };
 
+#endif
 #endif // _SnmpAgent_h_ 

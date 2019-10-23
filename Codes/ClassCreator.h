@@ -1,6 +1,7 @@
 #ifndef _ClassCreator_h_
 #define _ClassCreator_h_
 
+#ifdef ClassCreatorModule
 #ifdef _WIN32
 
 #include "SystemInclude.h"
@@ -140,4 +141,5 @@ int main()
 */
 
 #endif //#ifdef _WIN32
+#endif
 #endif

@@ -2,6 +2,8 @@
 #include "MyLibXml2.h"
 
 using namespace std;
+
+#ifdef XmlModule
 #ifdef _WIN32
 
 void PrintXpathNode(xmlNodeSetPtr nodes)
@@ -53,4 +55,5 @@ void TraverseXmlXpathNode()
 
     PrintXpathNode(xpathObj->nodesetval);
 }
+#endif
 #endif
